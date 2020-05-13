@@ -30,11 +30,15 @@ const client = new ApolloClient({
   }
 });
 
-client
-  .query({
-    query: GET_REPOSITORIES_OF_ORGANIZATION,
-    variables: {
-      organization: "the-road-to-learn-react"
-    }
-  })
-  .then(console.log);
+if (process.env.GITHUB_PERSONAL_ACCESS_TOKEN) {
+  client
+    .query({
+      query: GET_REPOSITORIES_OF_ORGANIZATION,
+      variables: {
+        organization: "the-road-to-learn-react"
+      }
+    })
+    .then(console.log);
+} else {
+  console.log("no GitHub token available.");
+}
